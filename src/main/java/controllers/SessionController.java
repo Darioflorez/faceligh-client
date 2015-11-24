@@ -58,12 +58,22 @@ public class SessionController {
     //Methods
     public String doLogin(){
         /*GET*/
-        Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
+        /*Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
         WebTarget target = client.target("http://localhost:8080/api.facelight").path("users/1");
 
         Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
         currentUser = invocationBuilder.get(UserViewModel.class);
 
+        System.out.println("UserName: "+ currentUser.getFirstName());*/
+        /*POST*/
+        Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
+        WebTarget target = client.target("http://130.229.130.25:8080/api.facelight/").path("login");
+
+
+        Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
+        Response response = invocationBuilder.post(Entity.entity(loginForm, MediaType.APPLICATION_JSON));
+
+        currentUser = response.readEntity(UserViewModel.class);
         System.out.println("UserName: "+ currentUser.getFirstName());
 
         if(currentUser != null){

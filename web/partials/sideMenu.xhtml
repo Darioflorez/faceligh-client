@@ -9,7 +9,7 @@
 
     <b:column styleClass="profile_pic">
         <h:graphicImage value="../resources/images/profile.jpg" style="width: 100%"/>
-        <h4 class="profile_name">#{sessionController.currentUser.name}</h4>
+        <h4 class="profile_name">#{sessionController.currentUser.firstName}</h4>
         <b:navbarLinks id="sidebar_buttons">
             <b:navLink value="My profile" outcome="index" iconAwesome="user"></b:navLink>
             <b:navLink value="Search" outcome="search" iconAwesome="search"></b:navLink>

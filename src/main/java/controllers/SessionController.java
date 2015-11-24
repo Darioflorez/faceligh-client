@@ -1,18 +1,19 @@
 package controllers;
 
 import ViewModels.UserViewModel;
+import com.sun.corba.se.impl.corba.CORBAObjectImpl;
 import forms.LoginForm;
+import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientResponse;
+import org.glassfish.jersey.filter.LoggingFilter;
+import org.omg.CORBA.Object;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Form;
+import javax.ws.rs.client.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * Created by dario on 2015-11-12.
@@ -56,17 +57,14 @@ public class SessionController {
 
     //Methods
     public String doLogin(){
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://localhost:8080/api.facelight").path("login");
+        /*GET*/
+        Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
+        WebTarget target = client.target("http://localhost:8080/api.facelight").path("users/1");
 
-        Form form = new Form();
-        form.param("email", "dario@email.com");
-        form.param("password", "123");
+        Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
+        currentUser = invocationBuilder.get(UserViewModel.class);
 
-        this.currentUser =
-                target.request(MediaType.APPLICATION_JSON_TYPE)
-                        .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED_TYPE),
-                                UserViewModel.class);
+        System.out.println("UserName: "+ currentUser.getFirstName());
 
         if(currentUser != null){
             return "index";

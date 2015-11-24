@@ -67,7 +67,7 @@ public class MessagesController {
         //MessageHandler.createMessage(messageForm);
 
         Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
-        WebTarget target = client.target("http://130.229.130.25:8080/api.facelight/").path("messages");
+        WebTarget target = client.target("http://localhost:8080/api.facelight/").path("messages");
 
 
         Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);

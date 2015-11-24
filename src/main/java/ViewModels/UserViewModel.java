@@ -19,10 +19,6 @@ public class UserViewModel {
         this.lastName = lastName;
     }
 
-    /*public String getName(){
-        return firstName + " " + lastName;
-    }*/
-
     public String getLastName() {
         return lastName;
     }

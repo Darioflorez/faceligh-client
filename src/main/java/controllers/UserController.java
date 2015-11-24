@@ -49,7 +49,6 @@ public class UserController {
         Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
         WebTarget target = client.target("http://130.229.130.25:8080/api.facelight/").path("users");
 
-
         Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.post(Entity.entity(userForm, MediaType.APPLICATION_JSON));
 
@@ -63,7 +62,6 @@ public class UserController {
 
         return "register";
     }
-
 
     public String userProfile(UserViewModel remoteUser){
         session.setRemoteUser(remoteUser);

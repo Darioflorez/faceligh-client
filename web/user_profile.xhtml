@@ -20,16 +20,27 @@
         </ui:insert>
     </b:column>
     <b:column span="8" id="content">
-        <h>#{sessionController.remoteUser.firstName}</h>
+        <h3>User Wall</h3>
+        <h3>First name: #{sessionController.remoteUser.firstName} Last name: #{sessionController.remoteUser.lastName}</h3>
+
         <ui:repeat value="#{messagesController.getMessages(sessionController.remoteUser)}" var="message">
             <b:column span="12" styleClass="card">
                 <b:column span="12" style="border-bottom: 2px dashed #888888; padding-bottom:7px;">
+
                     <b:column span="1">
                         <h:outputText value="From:" styleClass="card_label"/>
                     </b:column>
                     <b:column span="11" >
-                        <h:outputText value="#{message.sender.name}" var="raw" styleClass="card_from"/>
+                        <h:outputText value="#{message.sender.firstName}" var="raw" styleClass="card_from"/>
                     </b:column>
+
+                    <b:column span="1">
+                        <h:outputText value="To:" styleClass="card_label"/>
+                    </b:column>
+                    <b:column span="11" >
+                        <h:outputText value="#{message.receiver.firstName}" var="raw" styleClass="card_from"/>
+                    </b:column>
+
                 </b:column>
                 <b:column span="12" style="padding-top:7px;">
                     <b:column span="1">

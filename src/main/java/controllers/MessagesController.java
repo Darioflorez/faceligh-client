@@ -36,13 +36,19 @@ public class MessagesController {
 
     public ArrayList<MessageViewModel> getPrivateMessages(UserViewModel currentUser){
 
-        return null; //MessageHandler.getAllMessages(currentUser.getId());
+        Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
+        WebTarget target = client.target("http://localhost:8080/api.facelight/").path("messages").queryParam("userId", currentUser.getId()).queryParam("type", MessageType.PRIVATE);
+
+        Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
+        ArrayList<MessageViewModel> messages = invocationBuilder.get(new GenericType<ArrayList<MessageViewModel>>(){});
+
+        return messages;
     }
 
     public ArrayList<MessageViewModel> getMessages(UserViewModel currentUser)
     {
         Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
-        WebTarget target = client.target("http://localhost:8080/api.facelight").path("messages").queryParam("userId", currentUser.getId()).queryParam("type", MessageType.PUBLIC);
+        WebTarget target = client.target("http://localhost:8080/api.facelight/").path("messages").queryParam("userId", currentUser.getId()).queryParam("type", MessageType.PUBLIC);
 
         Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
         ArrayList<MessageViewModel> messages = invocationBuilder.get(new GenericType<ArrayList<MessageViewModel>>(){});

@@ -14,7 +14,7 @@
             <b:navLink value="My profile" outcome="index" iconAwesome="user"></b:navLink>
             <b:navLink value="Search" outcome="search" iconAwesome="search"></b:navLink>
             <b:navLink value="My friends" href="#" iconAwesome="group"></b:navLink>
-            <b:navLink value="My messages" href="#" iconAwesome="envelope"></b:navLink>
+            <b:navLink value="My messages" outcome="myMessages" iconAwesome="envelope"></b:navLink>
             <b:navLink value="New message" outcome="messageForm" iconAwesome="pencil"></b:navLink>
             <h:form>
                 <b:commandButton styleClass="sidebar_commandbutton" iconAwesome="chevron-right" value="Log out" action="#{sessionController.doLogout}"/>

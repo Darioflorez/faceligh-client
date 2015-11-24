@@ -55,6 +55,22 @@ body{
     text-align: center;
 }
 
+.sidebar_commandbutton:hover{
+    background-color: #F2F2F2;
+    border-left: 4px solid #2B3F78;
+    padding-left: 23px;
+}
+
+.sidebar_commandbutton{
+    border: none;
+    border-radius: 0px;
+    width: 100%;
+    text-align: left;
+    padding-left: 27px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
 #sidebar{
     height: calc(100% - 50px);
     padding-top: 20px;

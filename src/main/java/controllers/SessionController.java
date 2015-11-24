@@ -67,7 +67,7 @@ public class SessionController {
         System.out.println("UserName: "+ currentUser.getFirstName());*/
         /*POST*/
         Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
-        WebTarget target = client.target("http://130.229.130.25:8080/api.facelight/").path("login");
+        WebTarget target = client.target("http://localhost:8080/api.facelight/").path("login");
 
 
         Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);

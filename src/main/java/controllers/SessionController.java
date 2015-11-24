@@ -81,4 +81,11 @@ public class SessionController {
         }
         return "register";
     }
+
+
+    public String doLogout(){
+        currentUser = null;
+        remoteUser = null;
+        return "login";
+    }
 }

@@ -1,10 +1,18 @@
 package controllers;
 
+import ViewModels.MessageType;
 import ViewModels.MessageViewModel;
 import ViewModels.UserViewModel;
 import forms.MessageForm;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.filter.LoggingFilter;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.ws.rs.client.*;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 
 /**
@@ -33,9 +41,15 @@ public class MessagesController {
 
     public ArrayList<MessageViewModel> getMessages(UserViewModel currentUser)
     {
+        Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
+        WebTarget target = client.target("http://localhost:8080/api.facelight").path("messages").queryParam("userId", currentUser.getId()).queryParam("type", MessageType.PUBLIC);
+
+        Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
+        ArrayList<MessageViewModel> messages = invocationBuilder.get(new GenericType<ArrayList<MessageViewModel>>(){});
+
         //get from database
-        System.out.println("------CURRENT USER: "+ currentUser.getFirstName());
-        return null;
+        //System.out.println("------CURRENT USER: "+ currentUser.getFirstName());
+        return messages;
     }
     public void setMessages(ArrayList<MessageViewModel> messages) {
         this.messages = messages;
@@ -52,11 +66,26 @@ public class MessagesController {
 
         //MessageHandler.createMessage(messageForm);
 
+        Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
+        WebTarget target = client.target("http://130.229.130.25:8080/api.facelight/").path("messages");
+
+
+        Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
+        Response response = invocationBuilder.post(Entity.entity(messageForm, MediaType.APPLICATION_JSON));
+
+        System.out.println(response.readEntity(Boolean.class));
+
         return "index";
     }
 
     public ArrayList<UserViewModel> getAllUsers() {
-        //ArrayList<User> users = (ArrayList<User>) UserHandler.getAllUsers();
-        return null;
+
+        Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
+        WebTarget target = client.target("http://localhost:8080/api.facelight").path("users");
+
+        Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
+        ArrayList<UserViewModel> users = invocationBuilder.get(new GenericType<ArrayList<UserViewModel>>(){});
+
+        return users;
     }
 }

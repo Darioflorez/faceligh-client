@@ -2,9 +2,14 @@ package controllers;
 
 import ViewModels.UserViewModel;
 import forms.UserForm;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.filter.LoggingFilter;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.ws.rs.client.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * Created by dario on 2015-11-11.
@@ -41,9 +46,21 @@ public class UserController {
     //Methods
     public String registerUser(){
 
-        /*if(UserHandler.createUser(userForm) != null){
+        Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
+        WebTarget target = client.target("http://130.229.130.25:8080/api.facelight/").path("users");
+
+
+        Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
+        Response response = invocationBuilder.post(Entity.entity(userForm, MediaType.APPLICATION_JSON));
+
+        UserViewModel user = response.readEntity(UserViewModel.class);
+
+        System.out.println(user.getFirstName());
+
+        if(user != null){
             return "login";
-        }*/
+        }
+
         return "register";
     }
 

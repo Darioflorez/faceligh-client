@@ -34,7 +34,7 @@
                 </b:selectOneMenu>
                 <b:selectOneMenu label="To" value="#{messageForm.receiver}">
                     <c:forEach var="user" items="#{messagesController.getAllUsers()}">
-                        <f:selectItem itemLabel="#{user.email}" itemValue="#{user.id}"/>
+                        <f:selectItem itemLabel="#{user.firstName}" itemValue="#{user.id}"/>
                     </c:forEach>
                 </b:selectOneMenu>
                 <b:inputText label="Subject" value="#{messageForm.subject}"></b:inputText>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<b:column span="12">
+    <h:graphicImage value="resources/images/facelight_logo2.png" style="width: 100%;"/>
+</b:column>
+<b:column span="12" id="login_box">
+    <h:form>
+        <b:inputText value="#{loginForm.email}">Email</b:inputText>
+        <b:inputSecret value="#{loginForm.password}">Lösenord</b:inputSecret>
+        <b:commandButton value="Login" look="primary" style="width:100%;" action="#{sessionController.doLogin}"> </b:commandButton>
+        <h:link outcome="register">Register</h:link>
+    </h:form>
+</b:column>
+</html>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:outputStylesheet name="css/app.css" />
+<h:head>
+    <title>Facelight</title>
+</h:head>
+<h:body>
+<b:column span="12" id="topbar">
+    <h:graphicImage value="resources/images/facelight_logo2.png" styleClass="bar_logo"/>
+</b:column>
+<b:column span="2" id="sidebar">
+    <ui:insert name="menu">
+        <ui:include src="partials/sideMenu.xhtml" />
+    </ui:insert>
+</b:column>
+<b:column span="8" id="content" style="padding-top: 20px">
+    <h:form>
+        <b:column span="12">
+            <b:inputText value="#{search.query}">
+                <f:ajax event="keyup" listener="#{search.search}" render="users_list" />
+            </b:inputText>
+        </b:column>
+        <b:column span="12" id="users_list">
+            <ui:repeat var="user" value="#{search.users}">
+                <b:column span="12" styleClass="card">
+                    <b:column span="12">
+                        <b:column span="1" style=" margin-left: -15px;">
+                            <h:graphicImage value="resources/images/friend_logo.png" style="width: 100%;"/>
+                        </b:column>
+                        <b:column span="1">
+                            <h:outputText value="Name:" styleClass="search_card_label"/>
+                        </b:column>
+                        <b:column span="8">
+                            <h:outputText value="#{user.firstName}" styleClass="card_from"/>
+                        </b:column>
+                        <b:column span="1">
+                            <b:commandButton     value="View" action="#{userController.userProfile(user)}" look="primary" size="xs" style="margin-bottom:-5px; width: 100%"/>
+                        </b:column>
+                        <b:column span="1">
+                            <b:button outcome="index" value="+" look="success" size="xs" style="margin-bottom:-5px; width: 100%"/>
+                        </b:column>
+                    </b:column>
+                </b:column>
+            </ui:repeat>
+        </b:column>
+    </h:form>
+    <h:form>
+    <h:commandButton action="#{userController.getUserProfile}" value="View" look="primary" size="xs" style="margin-bottom:-5px; width: 100%">
+        <f:param name="id" value="2" />
+    </h:commandButton>
+    </h:form>
+</b:column>
+    <b:column span="2" styleClass="padding_col">
+        <h:outputText value="Search" styleClass="description"></h:outputText>
+        <!-- PADDING COLUMN -->
+    </b:column>
+</h:body>
+
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:outputStylesheet name="css/app.css" />
+<h:head>
+    <title>Facelight</title>
+</h:head>
+<h:body>
+    <b:column span="12" id="topbar">
+        <h:graphicImage value="resources/images/facelight_logo2.png" styleClass="bar_logo"/>
+    </b:column>
+    <b:column span="2" id="sidebar">
+        <ui:insert name="menu">
+            <ui:include src="partials/sideMenu.xhtml" />
+        </ui:insert>
+    </b:column>
+    <b:column span="8" id="content">
+        <ui:repeat value="#{messagesController.getMessages(sessionController.currentUser)}" var="message">
+            <b:column span="12" styleClass="card">
+                <b:column span="12" style="border-bottom: 2px dashed #888888; padding-bottom:7px;">
+                    <b:column span="1">
+                        <h:outputText value="From:" styleClass="card_label"/>
+                    </b:column>
+                    <b:column span="11" >
+                        <h:outputText value="#{message.sender.name}" var="raw" styleClass="card_from"/>
+                    </b:column>
+                </b:column>
+                <b:column span="12" style="padding-top:7px;">
+                    <b:column span="1">
+                        <h:outputText value="Subject:" styleClass="card_label"/>
+                    </b:column>
+                    <b:column span="11">
+                        <h:outputText value="#{message.subject}" styleClass="card_subject"/>
+                    </b:column>
+                </b:column>
+                <b:column span="12" style="padding-top:7px;">
+                    <b:column span="1">
+                        <h:outputText value="Message:" styleClass="card_label"/>
+                    </b:column>
+                    <b:column span="11">
+                        <h:outputText value="#{message.content}" styleClass="card_content"/>
+                    </b:column>
+                </b:column>
+            </b:column>
+        </ui:repeat>
+    </b:column>
+    <b:column span="2" styleClass="padding_col">
+        <h:outputText value="My messages" styleClass="description"></h:outputText>
+        <!-- PADDING COLUMN -->
+    </b:column>
+</h:body>
+</html>

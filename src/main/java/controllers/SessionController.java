@@ -22,6 +22,8 @@ import java.util.List;
 @SessionScoped
 public class SessionController {
 
+    private static final String API_URL = "http://130.237.84.58:8080/api.facelight/";
+
     @ManagedProperty(value="#{loginForm}")
     private LoginForm loginForm;
     private UserViewModel currentUser;
@@ -59,7 +61,7 @@ public class SessionController {
     public String doLogin(){
         /*POST*/
         Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
-        WebTarget target = client.target("http://localhost:8080/api.facelight/").path("login");
+        WebTarget target = client.target(API_URL).path("login");
 
         Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.post(Entity.entity(loginForm, MediaType.APPLICATION_JSON));

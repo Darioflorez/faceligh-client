@@ -13,6 +13,9 @@
 <h:body>
     <b:column span="12" id="topbar">
         <h:graphicImage value="resources/images/facelight_logo2.png" styleClass="bar_logo"/>
+        <b:navbarLinks>
+            <b:navLink value="Chat" outcome="chatroom" iconAwesome="comment" styleClass="chat_link"/>
+        </b:navbarLinks>
     </b:column>
     <b:column span="2" id="sidebar">
         <ui:insert name="menu">
@@ -28,6 +31,13 @@
                     </b:column>
                     <b:column span="11" >
                         <h:outputText value="#{message.sender.firstName}" var="raw" styleClass="card_from"/>
+                    </b:column>
+
+                    <b:column span="1">
+                        <h:outputText value="To:" styleClass="card_label"/>
+                    </b:column>
+                    <b:column span="11" >
+                        <h:outputText value="#{message.receiver.firstName}" var="raw" styleClass="card_from"/>
                     </b:column>
                 </b:column>
                 <b:column span="12" style="padding-top:7px;">

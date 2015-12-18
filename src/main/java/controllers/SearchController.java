@@ -23,6 +23,8 @@ import java.util.List;
 @SessionScoped
 public class SearchController {
 
+    private static final String API_URL = "http://130.237.84.58:8080/api.facelight/";
+
     private String query;
     private ArrayList<UserViewModel> users = new ArrayList<UserViewModel>();
 
@@ -47,7 +49,7 @@ public class SearchController {
         //users.forEach(item -> System.out.println(item.getFirstName()));
 
         Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
-        WebTarget target = client.target("http://localhost:8080/api.facelight/").path("users").queryParam("name", query);
+        WebTarget target = client.target(API_URL).path("users").queryParam("name", query);
 
         Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
         users = invocationBuilder.get(new GenericType<ArrayList<UserViewModel>>(){});

@@ -17,6 +17,8 @@ import javax.ws.rs.core.Response;
 @ManagedBean
 public class UserController {
 
+    private static final String API_URL = "http://130.237.84.58:8080/api.facelight/";
+
     @ManagedProperty(value="#{userForm}")
     private UserForm userForm;
     @ManagedProperty(value ="#{sessionController}")
@@ -47,7 +49,7 @@ public class UserController {
     public String registerUser(){
 
         Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
-        WebTarget target = client.target("http://130.229.130.25:8080/api.facelight/").path("users");
+        WebTarget target = client.target(API_URL).path("users");
 
         Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.post(Entity.entity(userForm, MediaType.APPLICATION_JSON));

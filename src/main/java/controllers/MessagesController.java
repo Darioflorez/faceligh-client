@@ -21,6 +21,8 @@ import java.util.ArrayList;
 @ManagedBean
 public class MessagesController {
 
+    private static final String API_URL = "http://130.237.84.58:8080/api.facelight/";
+
     @ManagedProperty(value="#{messageForm}")
     private MessageForm messageForm;
 
@@ -37,7 +39,7 @@ public class MessagesController {
     public ArrayList<MessageViewModel> getPrivateMessages(UserViewModel currentUser){
 
         Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
-        WebTarget target = client.target("http://localhost:8080/api.facelight/").path("messages").queryParam("userId", currentUser.getId()).queryParam("type", MessageType.PRIVATE);
+        WebTarget target = client.target(API_URL).path("messages").queryParam("userId", currentUser.getId()).queryParam("type", MessageType.PRIVATE);
 
         Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
         ArrayList<MessageViewModel> messages = invocationBuilder.get(new GenericType<ArrayList<MessageViewModel>>(){});
@@ -48,7 +50,7 @@ public class MessagesController {
     public ArrayList<MessageViewModel> getMessages(UserViewModel currentUser)
     {
         Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
-        WebTarget target = client.target("http://localhost:8080/api.facelight/").path("messages").queryParam("userId", currentUser.getId()).queryParam("type", MessageType.PUBLIC);
+        WebTarget target = client.target(API_URL).path("messages").queryParam("userId", currentUser.getId()).queryParam("type", MessageType.PUBLIC);
 
         Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
         ArrayList<MessageViewModel> messages = invocationBuilder.get(new GenericType<ArrayList<MessageViewModel>>(){});
@@ -73,7 +75,7 @@ public class MessagesController {
         //MessageHandler.createMessage(messageForm);
 
         Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
-        WebTarget target = client.target("http://localhost:8080/api.facelight/").path("messages");
+        WebTarget target = client.target(API_URL).path("messages");
 
 
         Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
@@ -87,7 +89,7 @@ public class MessagesController {
     public ArrayList<UserViewModel> getAllUsers() {
 
         Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFilter.class ));
-        WebTarget target = client.target("http://localhost:8080/api.facelight").path("users");
+        WebTarget target = client.target(API_URL).path("users");
 
         Invocation.Builder invocationBuilder =  target.request(MediaType.APPLICATION_JSON);
         ArrayList<UserViewModel> users = invocationBuilder.get(new GenericType<ArrayList<UserViewModel>>(){});

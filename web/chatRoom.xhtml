@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:outputStylesheet name="css/app.css" />
+<h:head>
+    <title>Facelight</title>
+</h:head>
+
+<h:body>
+
+    <b:column span="12" id="topbar">
+            <h:graphicImage value="resources/images/facelight_logo2.png" styleClass="bar_logo"/>
+        <b:navbarLinks>
+            <b:navLink value="Chat" outcome="chatroom" iconAwesome="comment" styleClass="chat_link"/>
+        </b:navbarLinks>
+    </b:column>
+    <b:column span="2" id="sidebar">
+        <ui:insert name="menu">
+            <ui:include src="partials/sideMenu.xhtml" />
+        </ui:insert>
+    </b:column>
+    <b:column span="8" id="content">
+
+        <b:column span="12" styleClass="chatBox">
+            <b:column span="12" styleClass="chatMessages">
+                <ul id="messages"></ul>
+            </b:column>
+        </b:column>
+        <b:column span="12" styleClass="chatForm">
+            <form action="">
+                <b:column span="10">
+                    <b:inputText id="m" />
+                    <h:inputHidden id="name" value="#{sessionController.currentUser.firstName}" />
+                </b:column>
+                <b:column span="2">
+                    <button>Send</button>
+                </b:column>
+            </form>
+        </b:column>
+
+    </b:column>
+    <b:column span="2" styleClass="padding_col">
+        <h:outputText value="Public Chat" styleClass="description"></h:outputText>
+        <!-- PADDING COLUMN -->
+    </b:column>
+
+    <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.2.0.js" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js" />
+    <h:outputScript library="js" name="app.js" />
+</h:body>
+</html>
